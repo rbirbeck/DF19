@@ -43,7 +43,7 @@
     "test": {
       "scripts": {
         "test-setup": "./vendor/sfdx/release.sh ci-$HEROKU_TEST_RUN_COMMIT_VERSION && ./bin/test-setup.sh && npm install",
-        "test": "./bin/test.sh && npm test"
+        "test": "./bin/test.sh && npm test && ./pmd-bin-6.19.0/bin/run.sh pmd -d ./force-app/main -R rulesets/java/quickstart.xml -f text"
       },
       "formation": {
         "test": {
