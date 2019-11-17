@@ -18,6 +18,9 @@
       },
       {
         "url": "https://github.com/heroku/salesforce-buildpack#v3"
+      },
+      {
+          "url": "heroku/nodejs"
       }
     ],
     "env": {
