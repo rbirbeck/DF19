@@ -13,7 +13,7 @@
   "devDependencies": {},
   "buildpacks": [
     {
-      "url": "heroku/java"
+      "url": "heroku/jvm"
     },
     {
       "url": "https://github.com/rbirbeck/pmd-buildpack"
