@@ -1,55 +1,59 @@
 {
-    "name": "DF19",
-    "version": "0.0.1",
-    "description": "Test application for the DF19 Sample Repo",
-    "repository": "https://github.com/rbirbeck/DF19",
-    "author": "",
-    "license": "ALv2",
-    "bugs": {
-      "url": "https://github.com/rbirbeck/DF19/issues"
+  "name": "DF19",
+  "version": "0.0.1",
+  "description": "Test application for the DF19 Sample Repo",
+  "repository": "https://github.com/rbirbeck/DF19",
+  "author": "",
+  "license": "ALv2",
+  "bugs": {
+    "url": "https://github.com/rbirbeck/DF19/issues"
+  },
+  "homepage": "https://github.com/rbirbeck/DF19#readme",
+  "dependencies": {},
+  "devDependencies": {},
+  "buildpacks": [
+    {
+      "url": "heroku/jvm"
     },
-    "homepage":
-      "https://github.com/rbirbeck/DF19#readme",
-    "dependencies": {},
-    "devDependencies": {},
-    "buildpacks": [
-      {
-        "url": "https://github.com/heroku/salesforce-cli-buildpack#v3"
-      },
-      {
-        "url": "https://github.com/heroku/salesforce-buildpack#v3"
-      },
-      {
-          "url": "heroku/nodejs"
-      }
-    ],
-    "env": {
-      "SFDX_DEV_HUB_AUTH_URL": {
-        "required": true
-      },
-      "SFDX_BUILDPACK_DEBUG": {
-        "required": true
-      },
-      "HEROKU_APP_NAME" : {
-        "required": true
-      }
+    {
+      "url": "https://github.com/rbirbeck/pmd-buildpack"
     },
-    "environments": {
-      "test": {
-        "scripts": {
-          "test-setup":
-            "./vendor/sfdx/release.sh ci-$HEROKU_TEST_RUN_COMMIT_VERSION && ./bin/test-setup.sh && npm install",
-          "test": "./bin/test.sh && npm test"
-        },
-        "formation": {
-          "test": {
-            "quantity": 1,
-            "size": "standard-1x"
-          }
+    {
+      "url": "https://github.com/heroku/salesforce-cli-buildpack#v3"
+    },
+    {
+      "url": "https://github.com/heroku/salesforce-buildpack#v3"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "SFDX_DEV_HUB_AUTH_URL": {
+      "required": true
+    },
+    "SFDX_BUILDPACK_DEBUG": {
+      "required": true
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
+    }
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "./vendor/sfdx/release.sh ci-$HEROKU_TEST_RUN_COMMIT_VERSION && ./bin/test-setup.sh && npm install",
+        "test": "./bin/test.sh && npm test && ./pmd-bin-6.19.0/bin/run.sh pmd -d ./force-app/main -R rulesets/java/quickstart.xml -f text"
+      },
+      "formation": {
+        "test": {
+          "quantity": 1,
+          "size": "standard-1x"
         }
       }
-    },
-    "scripts": {
-      "pr-predestroy": "./bin/ra-org-delete.sh"
     }
+  },
+  "scripts": {
+    "pr-predestroy": "./bin/ra-org-delete.sh"
   }
+}
